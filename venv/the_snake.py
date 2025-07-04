@@ -5,6 +5,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
+
 UP = (0, -1)
 DOWN = (0, 1)
 LEFT = (-1, 0)
@@ -14,6 +15,7 @@ BOARD_BACKGROUND_COLOR = (0, 0, 0)
 BORDER_COLOR = (93, 216, 228)
 APPLE_COLOR = (255, 0, 0)
 SNAKE_COLOR = (0, 255, 0)
+
 SPEED = 10
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
@@ -24,8 +26,8 @@ clock = pygame.time.Clock()
 class GameObject:
     def __init__(self, position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)):
         self.position = position
-        
-    def draw(self): 
+
+    def draw(self):
         pass
 
 
@@ -113,11 +115,13 @@ def main():
         handle_keys(snake)
         snake.update_direction()
         snake.move()
+        
         if snake.get_head_position() == apple.position:
             snake.length += 1
             apple.randomize_position()
             while apple.position in snake.positions:
                 apple.randomize_position()
+                
         if snake.get_head_position() in snake.positions[1:]:
             snake.reset()
 
