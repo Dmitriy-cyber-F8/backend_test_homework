@@ -43,7 +43,8 @@ class GameObject:
     def __init__(self, position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)):
         self.position = position
         
-    def draw(self):
+    def draw(self): 
+        pass
     
     
 class Apple(GameObject):
@@ -95,15 +96,15 @@ class Snake(GameObject):
             self.next_direction = None
         
     def move(self):
-            self.last = self.positions[-1] if self.positions else None
-            head_pos_x, head_pos_y = self.get_head_position()
-            change_x, change_y = self.direction
-            new_pos_x = (head_pos_x + change_x * GRID_SIZE) % SCREEN_WIDTH
-            new_pos_y = (head_pos_y + change_y * GRID_SIZE) % SCREEN_HEIGHT
-            new_head_position = (new_pos_x, new_pos_y)
-            self.positions.insert(0, new_head_position)
-            if len(self.positions) > self.length:
-                self.positions.pop()
+        self.last = self.positions[-1] if self.positions else None
+        head_pos_x, head_pos_y = self.get_head_position()
+        change_x, change_y = self.direction
+        new_pos_x = (head_pos_x + change_x * GRID_SIZE) % SCREEN_WIDTH
+        new_pos_y = (head_pos_y + change_y * GRID_SIZE) % SCREEN_HEIGHT
+        new_head_position = (new_pos_x, new_pos_y)
+        self.positions.insert(0, new_head_position)
+        if len(self.positions) > self.length:
+            self.positions.pop()
 
 
 def handle_keys(game_object):
