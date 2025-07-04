@@ -28,7 +28,7 @@ class GameObject:
     def draw(self): 
         pass
 
-    
+
 class Apple(GameObject):
     def __init__(self, body_color=APPLE_COLOR): 
         super().__init__()
@@ -38,22 +38,22 @@ class Apple(GameObject):
     def randomize_position(self):
         self.position = (randint(0, GRID_WIDTH - 1) * GRID_SIZE,
                          randint(0, GRID_HEIGHT - 1) * GRID_SIZE
-                         )
-        
+                        )
+
     def draw(self):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-     
+
 
 class Snake(GameObject):
     def __init__(self):
         super().__init__()
         self.reset()
-   
+
     def get_head_position(self):
         return self.positions[0]
-        
+
     def draw(self):
         for position in self.positions:
             rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
@@ -70,7 +70,7 @@ class Snake(GameObject):
         self.next_direction = None
         self.body_color = SNAKE_COLOR
         self.last = None
-        
+
     def update_direction(self):
         if self.next_direction:
             self.direction = self.next_direction
@@ -126,6 +126,6 @@ def main():
         apple.draw()
         pygame.display.update()
 
-    
+
 if __name__ == '__main__':
     main()
