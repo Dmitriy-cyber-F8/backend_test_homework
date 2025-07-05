@@ -1,4 +1,5 @@
 from random import choice, randint
+
 import pygame
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -32,7 +33,7 @@ class GameObject:
 
 
 class Apple(GameObject):
-    def __init__(self, body_color=APPLE_COLOR): 
+    def __init__(self, body_color=APPLE_COLOR):
         super().__init__()
         self.randomize_position()
         self.body_color = body_color
@@ -40,7 +41,7 @@ class Apple(GameObject):
     def randomize_position(self):
         self.position = (randint(0, GRID_WIDTH - 1) * GRID_SIZE,
                          randint(0, GRID_HEIGHT - 1) * GRID_SIZE
-                        )
+                         )
 
     def draw(self):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
@@ -115,19 +116,19 @@ def main():
         handle_keys(snake)
         snake.update_direction()
         snake.move()
-        
         if snake.get_head_position() == apple.position:
             snake.length += 1
             apple.randomize_position()
             while apple.position in snake.positions:
                 apple.randomize_position()
-                
         if snake.get_head_position() in snake.positions[1:]:
             snake.reset()
 
         screen.fill(BOARD_BACKGROUND_COLOR)
+
         snake.draw()
         apple.draw()
+
         pygame.display.update()
 
 
