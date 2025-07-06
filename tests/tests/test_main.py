@@ -1,6 +1,6 @@
 import pytest
 
-from conftest import StopInfiniteLoop
+from the_snake.the_snake.tests.tests.conftest import StopInfiniteLoop
 
 
 @pytest.mark.timeout(1, method='thread')
