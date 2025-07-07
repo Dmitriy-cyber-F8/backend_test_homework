@@ -27,8 +27,9 @@ clock = pygame.time.Clock()
 class GameObject:
     """Абстрактный класс"""
 
-    def __init__(self, position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)):
+    def __init__(self, position=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), body_color=None):
         self.position = position
+        self.body_color = body_color
 
     def draw(self):
         """Абстрактный метод для отрисовки объекта"""
