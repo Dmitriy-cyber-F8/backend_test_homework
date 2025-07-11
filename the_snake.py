@@ -47,25 +47,22 @@ class GameObject:
 
 
 class Apple(GameObject):
-    """Реализует создания яблока."""
+    """Реализует создание яблока."""
 
-    def __init__(self, occupied_cells=None, body_color=APPLE_COLOR):
+    def __init__(self, body_color=APPLE_COLOR):
         """Инициализация яблока."""
         super().__init__()
         self.body_color = body_color
-        self.occupied_cells = occupied_cells
-        # По умолчанию occupied_cells (множество занятых позиций) равен None
-        if occupied_cells is None:
-            self.occupied_cells = set()
-        self.randomize_position()
 
-    def randomize_position(self):
+    def randomize_position(self, occupied_cells):
         """Установка случайного положения яблока, избегая занятые клетки."""
         while True:
             self.position = (randint(0, GRID_WIDTH - 1) * GRID_SIZE,
                              randint(0, GRID_HEIGHT - 1) * GRID_SIZE
                              )
-            if self.position not in self.occupied_cells:
+            if occupied_cells is None:
+                occupied_cells = set()
+            if self.position not in occupied_cells:
                 break
 
     def draw(self):
@@ -76,7 +73,7 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
-    """Реализует создания змейки и все ее действия."""
+    """Реализует создание змейки и все ее действия."""
 
     def __init__(self, body_color=SNAKE_COLOR):
         """Инициализация начального состояния."""
@@ -87,6 +84,7 @@ class Snake(GameObject):
     def get_head_position(self):
         """
         Возвращает позицию головы как первый по счету элемент
+
         в коллекции.
         """
         return self.positions[0]
@@ -119,6 +117,7 @@ class Snake(GameObject):
     def move(self):
         """
         Обновляет позицию змейки.
+
         Добавляет новую голову и убирает последний элемент.
         """
         self.last = self.positions[-1] if self.positions else None
@@ -155,7 +154,8 @@ def main():
     """Выполнение цикла игры."""
     pygame.init()
     snake = Snake()
-    apple = Apple(occupied_cells=set(snake.positions))
+    apple = Apple()
+    apple.randomize_position(snake.positions)
 
     screen.fill(BOARD_BACKGROUND_COLOR)
     while True:
@@ -163,19 +163,15 @@ def main():
         handle_keys(snake)
         snake.update_direction()
         snake.move()
-        # Обновляем занятые клетки в яблоке
-        apple.occupied_cells = set(snake.positions)
         head_position = snake.get_head_position()
         if head_position == apple.position:
             snake.length += 1
-            apple.randomize_position()
+            apple.randomize_position(snake.positions)
         if head_position in snake.positions[1:]:
             screen.fill(BOARD_BACKGROUND_COLOR)
             pygame.display.update()
             snake.reset()
-
-            apple.occupied_cells = set(snake.positions)
-            apple.randomize_position()
+            apple.randomize_position(snake.positions)
 
         snake.draw()
         apple.draw()
