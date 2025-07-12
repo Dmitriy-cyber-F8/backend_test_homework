@@ -49,7 +49,8 @@ class GameObject:
 class Apple(GameObject):
     """Реализует создание яблока."""
 
-    def __init__(self, occupied_cells, body_color=APPLE_COLOR):
+    # Установил None по умолчанию, потому что иначе код тесты не проходил
+    def __init__(self, occupied_cells=None, body_color=APPLE_COLOR):
         """Инициализация яблока."""
         super().__init__()
         self.body_color = body_color
