@@ -49,10 +49,11 @@ class GameObject:
 class Apple(GameObject):
     """Реализует создание яблока."""
 
-    def __init__(self, body_color=APPLE_COLOR):
+    def __init__(self, occupied_cells, body_color=APPLE_COLOR,):
         """Инициализация яблока."""
         super().__init__()
         self.body_color = body_color
+        self.randomize_position(occupied_cells)
 
     def randomize_position(self, occupied_cells):
         """Установка случайного положения яблока, избегая занятые клетки."""
@@ -82,11 +83,7 @@ class Snake(GameObject):
         self.reset()
 
     def get_head_position(self):
-        """
-        Возвращает позицию головы как первый по счету элемент
-
-        в коллекции.
-        """
+        """Возвращает позицию головы как первый по счету элемент списка."""
         return self.positions[0]
 
     def draw(self):
@@ -154,8 +151,7 @@ def main():
     """Выполнение цикла игры."""
     pygame.init()
     snake = Snake()
-    apple = Apple()
-    apple.randomize_position(snake.positions)
+    apple = Apple(occupied_cells=snake.positions)
 
     screen.fill(BOARD_BACKGROUND_COLOR)
     while True:
