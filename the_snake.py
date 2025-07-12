@@ -49,7 +49,7 @@ class GameObject:
 class Apple(GameObject):
     """Реализует создание яблока."""
 
-    def __init__(self, occupied_cells, body_color=APPLE_COLOR,):
+    def __init__(self, occupied_cells, body_color=APPLE_COLOR):
         """Инициализация яблока."""
         super().__init__()
         self.body_color = body_color
